@@ -3,7 +3,6 @@ $pageTitle = 'Авторизация';
 require_once "struktura.php";
 $loginError = '';
 
-// Check if the user is already logged in and redirect them if necessary
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
     if ($user['user_type_id'] == 2) {
@@ -19,17 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = $_POST["login"] ?? "";
     $password = $_POST["password"] ?? "";
 
-    // Sanitize input before passing to find function (though find() also sanitizes)
     $login = strip_tags($login);
     $password = strip_tags($password);
 
-    $user = find($login, $password); // This now returns user data or false
+    $user = find($login, $password); 
 
     if ($user) {
-        // Successful login
-        $_SESSION['user'] = $user; // Store the entire user data array in session
+        $_SESSION['user'] = $user; 
 
-        // Redirect based on user type
         if ($user['user_type_id'] == 2) {
             header("Location: admin.php");
             exit();
@@ -38,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     } else {
-        // Failed login
         $loginError = "Неверный логин или пароль.";
     }
 }

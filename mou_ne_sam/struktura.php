@@ -3,29 +3,24 @@ require_once "db/db.php";
 $navLinks = [];
 $showAuthLinks = true;
 
-// Check if user is logged in via session
 if (isset($_SESSION['user'])) {
-    $showAuthLinks = false; // Hide auth links if user is logged in
-    $user = $_SESSION['user']; // User data is already in the session
+    $showAuthLinks = false; 
+    $user = $_SESSION['user']; 
 
-    // Check user type from the session data
     $userTypeId = $user['user_type_id'] ?? null;
     
-    if ($userTypeId == 2) { // Administrator
-        // Admin specific links
+    if ($userTypeId == 2) { 
         $navLinks = [
             ['href' => 'admin.php', 'text' => 'Панель администратора'],
         ];
-    } else { // Regular User
+    } else { 
         $navLinks = [
             ['href' => 'zayavka.php', 'text' => 'Список заявок'],
             ['href' => 'create_zayavka.php', 'text' => 'Создать заявку'],
         ];
     }
-    // Add logout button for all logged-in users
     $navLinks[] = ['href' => 'logout.php', 'text' => 'Выход'];
 } else {
-    // Links visible before authentication
     $navLinks = [
         ['href' => 'index.php', 'text' => 'Авторизация'],
         ['href' => 'registration.php', 'text' => 'Регистрация'],
@@ -38,12 +33,12 @@ if (isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой не сам  <?php echo $pageTitle; ?></title>
-    <link rel='icon' href='images/logo.jpeg'>
+    <link rel='icon' href='images/logo.jpg'>
     <link rel='stylesheet' href='css/style.css'>
 </head>
 <body>
     <header>
-        <img src='images/logo.jpeg' alt='логотип'>
+        <img src='images/logo.jpg' alt='логотип'>
         <h1>Мой не сам</h1>
     </header>
 <!--
